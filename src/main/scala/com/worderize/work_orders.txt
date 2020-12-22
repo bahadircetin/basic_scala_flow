@@ -1,0 +1,2 @@
+"orderId","orderDescription","contactInfo","location","customerInfo"
+"123456","Transportation of Mirrors","Phone: 312 290 8989","Bilkent/Ankara","Bilkent University"
