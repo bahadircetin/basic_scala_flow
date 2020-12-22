@@ -1,7 +1,7 @@
 # Worderize
 This is the private repository for development and implementation of the Team-14's Senior Project. It is for back-end part of the project which will be developed bu using Scala language and Akka Toolbox.
 
-## Coding Standard & Style Guideline: https://docs.scala-lang.org/style/
+### Coding Standard & Style Guideline: https://docs.scala-lang.org/style/
 
 ## Team-14 Group Members: 
 - Seyit Bahadır Çetin
