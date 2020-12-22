@@ -53,7 +53,6 @@ object CreateWorkOrderFlow {
   import scala.util.Try
   import scala.concurrent.ExecutionContext.Implicits._
 
-
   // Implicit actor system
   implicit val system: ActorSystem = ActorSystem("Sys")
 
@@ -79,6 +78,7 @@ object CreateWorkOrderFlow {
         println(elem); elem
       }*/
 
+      // Flow of the Stream
       windeskSource ~> flowFileToWorkOrder ~> sink
 
       ClosedShape
