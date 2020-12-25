@@ -53,10 +53,10 @@ object CreateWorkOrderFlow {
   import scala.util.Try
   import scala.concurrent.ExecutionContext.Implicits._
 
-  // Implicit actor system
+  /** Implicit actor system*/
   implicit val system: ActorSystem = ActorSystem("Sys")
 
-  // Implicit actor materializer
+  /** Implicit actor materializer*/
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   import scala.io.StdIn._
 
@@ -67,18 +67,19 @@ object CreateWorkOrderFlow {
 
       val windeskSource: Outlet[String] = builder.add(Source.fromIterator(() => workOrders)).out
       val flowFileToWorkOrder: FlowShape[String, WorkOrder] = builder.add(csvToWorkOrderEvent)
-      // val closeWorkOrder: FlowShape[WorkOrder, (String, Int, Int)] = builder.add(closeWorkOrder)
-      val sink = Sink.foreach[(WorkOrder)] (println)
+      /** val closeWorkOrder: FlowShape[WorkOrder, (String, Int, Int)] = builder.add(closeWorkOrder)*/
+      val sink = Sink.foreach[WorkOrder] (println)
 
-      /* For Logging Operations
+      /** For Logging Operations
       val loggedSourceWindesk = windeskSource.map { elem =>
         println(elem); elem
       }
       val loggedWorkOrder = flowFileToWorkOrder.map { elem =>
         println(elem); elem
-      }*/
+      }
+       */
 
-      // Flow of the Stream
+      /** Flow of the Stream*/
       windeskSource ~> flowFileToWorkOrder ~> sink
 
       ClosedShape
@@ -86,26 +87,27 @@ object CreateWorkOrderFlow {
     RunnableGraph.fromGraph(workOrderFlow).run()
   }
 
-  // Get the file and Iterate through items.
+  /** Get the file and Iterate through items.*/
   val workOrders: Iterator[String] = io.Source.fromFile("src/main/scala/com/worderize/work_orders.txt", "utf-8")
     .getLines()
 
-  // Flow for reading csv and mapping to the creation of WorkOrder objects
+  /** Flow for reading csv and mapping to the creation of WorkOrder objects*/
   val csvToWorkOrderEvent: Flow[String, WorkOrder, NotUsed] = Flow[String]
     .map(_.split(",").map(_.trim)) // Getting columns split by ","
     .map(stringArrayToWorkOrderEvent) // Convert an array of columns to a WorkOrderEvent
 
-  /*val closeWorkOrder =
+  /**val closeWorkOrder =
     println("Enter the closed Work Order ID : ")
     val orderId = readInt()
     Flow[WorkOrder]
       .filter(r => Try(r.orderId.toInt).getOrElse(r.orderId) == orderId)
-      .drop(1)*/
+      .drop(1)
+   */
 
-  // String array to WorkOrderEvent meaning: creating the WorkOrder objects.
+  /** String array to WorkOrderEvent meaning: creating the WorkOrder objects.*/
   def stringArrayToWorkOrderEvent(cols: Array[String]) = new WorkOrder(cols(0), cols(1), cols(2), cols(3), cols(4))
 
-  // Class definition of WorkOrder
+  /** Class definition of WorkOrder*/
   case class WorkOrder(
                         orderId: String,
                         orderDescription: String,
