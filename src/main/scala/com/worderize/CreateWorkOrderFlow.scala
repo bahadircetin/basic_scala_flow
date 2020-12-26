@@ -4,7 +4,7 @@ import akka.NotUsed
 
 /**
  * FlowShape
- * Outlet[List, WorkOrders]               FlowShape[String, WorkOrder]           FlowShape[ProductID, Supplier]
+ * Inlet[List, WorkOrders]               FlowShape[String, WorkOrder]           FlowShape[ProductID, Supplier]
  *╔══════════════════════╗                ╔══════════════════════╗                ╔══════════════════════╗
  *║                      ║                ║                      ║                ║                      ║
  *║ Windesk API          ║                ║                      ║                ║                      ║
@@ -18,7 +18,7 @@ import akka.NotUsed
                                                                                                               *│
                                                                                                               *│
                                                                                                               *│
-                                                 *Inlet[Any]                   FlowShape[OrderType, Worker]    │
+                                                 *Outlet[Any]                   FlowShape[OrderType, Worker]    │
                                          *╔══════════════════════╗                ╔══════════════════════╗     │
                                          *║                      ║                ║                      ║     │
                                          *║Not implemented yet   ║                ║                      ║     │
@@ -32,7 +32,7 @@ import akka.NotUsed
                                                                                            *│  │
                                                                                            *└──┘
                                                        *FlowShape                             │
-      *Inlet[Any]             [WorkOrder, (Worker, Status, Time)]                             │
+      *Outlet[Any]             [WorkOrder, (Worker, Status, Time)]                             │
 *╔══════════════════════╗                ╔══════════════════════╗                             │
 *║                      ║                ║                      ║                             │
 *║                      ║                ║                      ║                             │
